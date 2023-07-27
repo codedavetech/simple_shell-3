@@ -7,14 +7,19 @@
 
 typedef struct
 {
-	char* args[MAX_ARGS];
+	char *args[MAX_ARGS];
 	int tokCount;
-	char* nextCommand;
+	char *nextCommand;
 } param_t;
 
-void free_args(param_t* params)
+/**
+ * free_args - free argumment
+ */
+
+void free_args(param_t *params)
 {
 	int i;
+
 	for (i = 0; i < params->tokCount; i++)
 	{
 		free(params->args[i]);
@@ -23,9 +28,9 @@ void free_args(param_t* params)
 params->tokCount = 0;
 }
 
-int process_string(param_t* params)
+int process_string(param_t *params)
 {
-	char* nextArg;
+	char *nextArg;
 	int argCount = 0;
 
 	nextArg = strtok(params->nextCommand, " \t\r\n\a");
@@ -35,7 +40,7 @@ int process_string(param_t* params)
 		{
 			fprintf(stderr, "Error: Too many arguments in command.\n");
 			free_args(params);
-			return 0;
+			return (0);
 		}
 
 	params->args[argCount] = malloc(strlen(nextArg) + 1);
@@ -43,7 +48,7 @@ int process_string(param_t* params)
 	{
 		fprintf(stderr, "Error: Memory allocation failed.\n");
 		free_args(params);
-		return 0;
+		return (0);
 	}
 
 	strcpy(params->args[argCount], nextArg);
@@ -53,9 +58,9 @@ int process_string(param_t* params)
 	}
 
 	params->tokCount = argCount;
-	return argCount;
+	return (argCount);
 }
-int shell_main()
+int shell_main(void)
 {
 	int argCount;
 	param_t params;
@@ -66,7 +71,6 @@ int shell_main()
 	{
 		params.args[i] = NULL;
 	}
-
 	params.nextCommand = command;
 	params.tokCount = 0;
 
@@ -79,8 +83,6 @@ int shell_main()
 			printf("%d: %s\n", i, params.args[i]);
 		}
 	}
-
 	free_args(&params);
-
-	return 0;
+	return (0);
 }

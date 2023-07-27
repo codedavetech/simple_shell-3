@@ -23,7 +23,6 @@ int isDelim(char c, char *delim)
  * @str: string to be passed
  * @delim: delimiters for tokens
  * @savePtr: state
- *
  * Return: next token found in string, NULL if not found
  */
 char *_strtok(char *str, char *delim, char **savePtr)
@@ -42,18 +41,14 @@ char *_strtok(char *str, char *delim, char **savePtr)
 		ptr++;
 	modifier = ptr;
 	if (*ptr == '\0')
-	{
 		return (NULL);
-	}
 	if (*ptr == '\'')
 	{
 		ptr++;
 		modifier = _strchr(ptr, '\'');
 		if (!modifier)
-		{
 			_printf("no matching quote found!\n");
 			exit(-1);
-		}
 		*modifier = '\0';
 		*savePtr = modifier + 1;
 		return (_strdup(ptr));

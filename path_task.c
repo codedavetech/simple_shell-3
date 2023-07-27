@@ -13,15 +13,12 @@
  */
 char *get_file(param_t *params)
 {
-	char *path = NULL;
+	char *path = NULL, *state = NULL;
 	char *exePath = NULL, *exeArg = NULL, *tmp = NULL;
-	char *state = NULL;
 
 	if (access(params->args[0], F_OK | X_OK) == 0)
-	{
 		free(path);
 		return (_strdup(params->args[0]));
-	}
 	if (errno == EACCES)
 	{
 		params->status = 126;
@@ -30,10 +27,8 @@ char *get_file(param_t *params)
 	}
 	path = _getenv("PATH", params);
 	if (!path)
-	{
 		write_error(params, "not found\n");
 		return (NULL);
-	}
 	exePath = _strtok(path, ":", &state);
 	while (exePath)
 	{
@@ -59,4 +54,3 @@ char *get_file(param_t *params)
 	free(exeArg);
 	return (NULL);
 }
-
