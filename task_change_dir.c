@@ -15,29 +15,20 @@ void _cd(param_t *params)
 	int i;
 
 	if (params->tokCount == 1)
-	{
 		target = _getenv("HOME", params);
 		if (!target)
-		{
 			params->status = 0;
 			return;
-		}
-	}
 	else if (params->args[1][0] == '-')
-	{
 		if (!_strcmp(params->args[1], "-"))
-		{
 			target = _getenv("OLDPWD", params);
 			if (!target)
-			{
 				params->status = 0;
 				target = _getenv("PWD", params);
 				_printf("%s\n", target);
 				free(target);
 				return;
-			}
 			_printf("%s\n", target);
-		}
 		else
 		{
 			params->status = 2;
